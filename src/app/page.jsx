@@ -10,7 +10,6 @@ async function loadTasks() {
 
 export default async function HomePage() {
   const tasks = await loadTasks();
-  console.log(tasks);
   return (
     <section className="container mx-auto">
       <div className="grid grid-cols-3 gap-3 mt-10">
