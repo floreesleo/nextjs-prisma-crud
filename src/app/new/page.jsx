@@ -75,12 +75,32 @@ export default function NewPage({ params }) {
           value={description}
           className="border border-gray-400 p-2 mb-4 w-full text-black"
         ></textarea>
-        <button
-          type="submit"
-          className="bg-blue-600 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded"
-        >
-          Crear
-        </button>
+        <div className="flex justify-between">
+          <button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded"
+          >
+            Crear
+          </button>
+
+          {params.id && (
+            <button
+              className="bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded"
+              type="button"
+              onClick={async () => {
+                const res = await fetch(`/api/tasks/${params.id}`, {
+                  method: "DELETE",
+                  // Como no va a enviar datos no necesita el body, y como no envia datos, no necesita el headers
+                });
+                const data = await res.json();
+                router.refresh();
+                router.push("/");
+              }}
+            >
+              Eliminar
+            </button>
+          )}
+        </div>
       </form>
     </div>
   );
